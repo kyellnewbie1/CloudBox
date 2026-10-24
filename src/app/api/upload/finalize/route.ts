@@ -36,7 +36,7 @@ export async function POST(req: NextRequest) {
     }
     const { error: updateError } = await db.from("files").update({ status: "active" }).eq("id", id).eq("status", "pending");
     if (updateError) return jsonError("Gagal menyelesaikan upload.", 500);
-    const base = process.env.NEXT_PUBLIC_SITE_URL || new URL(req.url).origin;
+    const base = process.env.SITE_URL || new URL(req.url).origin;
     return NextResponse.json({
       ok: true, id, creator: "KyZX", url: `${base}/f/${id}`, directUrl: `${base}/api/file/${id}`,
       expiresAt: row.expires_at
